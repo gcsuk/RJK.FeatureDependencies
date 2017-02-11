@@ -1,0 +1,49 @@
+﻿@model RJK.FeatureDependencies.Models.DependencyVisualiserVm
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" src="~/Modules/RJK.FeatureDependencies/Styles/vis.min.css" />
+    <script type="text/javascript" src="~/Modules/RJK.FeatureDependencies/Scripts/vis.min.js"></script>
+    <style type="text/css">
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+            min-height: 1000px;
+            min-width: 1000px
+        }
+    </style>
+</head>
+<body>
+    <div id="mynetwork"></div>
+    <script type="text/javascript">
+        // create an array with nodes
+        var nodes = new vis.DataSet([
+            @foreach (var node in Model.Nodes)
+            {
+                <text>{id: '@(node.Id)', label: '@(node.Label)'},</text>
+            }
+        ]);
+
+        // create an array with edges
+        var edges = new vis.DataSet([
+            @foreach (var edge in Model.Edges)
+            {
+                <text>{from: '@(edge.From)', to: '@(edge.To)'},</text>
+            }
+        ]);
+
+        // create a network
+        var container = document.getElementById('mynetwork');
+
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {};
+
+        // initialize your network!
+        var network = new vis.Network(container, data, options);
+    </script>
+</body>
+</html>
