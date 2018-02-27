@@ -28,7 +28,7 @@
         var edges = new vis.DataSet([
             @foreach (var edge in Model.Edges)
             {
-                <text>{from: '@(edge.From)', to: '@(edge.To)'},</text>
+                <text>{ from: '@(edge.From)', to: '@(edge.To)', arrows: { to: {enabled: true}}},</text>
             }
         ]);
 
